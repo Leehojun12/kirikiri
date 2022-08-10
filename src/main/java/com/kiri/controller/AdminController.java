@@ -172,13 +172,12 @@ public class AdminController {
 
       // board 총 count 가져오기
       int boardCnt = service.selectBoardCount();
+      System.out.println("boardCnt : "+ boardCnt);
 
       // group_board 총 count 가져오기
 	 int group_boardCnt = service.selectGroupBoardCount();
 
-	 int totalCnt = boardCnt + group_boardCnt;
-	 System.out.println(totalCnt);
-	 model.addAttribute("totalCnt",totalCnt);
+	 model.addAttribute("totalCnt",boardCnt);
 
 	 // 페이지 네이션
 	 HashMap<String, Object> map = service.getBoardPageNavi(curPage);

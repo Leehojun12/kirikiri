@@ -88,7 +88,7 @@ body {
 /* 바디*/
 .signupBox {
 	margin-top: 100px;
-	width: 1000px;
+	width: 100%;
 	height: auto;
 	border: 1px solid d2e3ec;
 	text-align: center;
@@ -173,10 +173,6 @@ body {
 	height: 40%;
 }
 
-label {
-	margin: 5px;
-}
-
 button {
 	margin: 30px;
 	margin-bottom: 70px;
@@ -215,7 +211,7 @@ input {
 }
 
 p {
-	margin-top: 10px;
+	text-align: center;
 }
 
 #nicknameCheck, #emailCheck, #idCheck, #phoneCheck {
@@ -248,7 +244,7 @@ p {
 .bthday {
 	display: inline-block;
 	text-align: left;
-	width: 20%;
+	width: 28%;
 }
 
 h1 {
@@ -438,20 +434,20 @@ footer.footer {
 		</div>
 		<!-- info 영역-->
 		<form action="/mem/profileModify" method="post" id="profileModifyForm">
-			<div id="userInfoBox">
+			<div class="container" id="userInfoBox">
 				<div class="row p-3">
 				</div>
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-lg-3 col-sm-12">
 						<p id="nameTitle">이름</p>
 					</div>
-					<div class="col-md-7">
+					<div class="col-lg-7 col-sm-12"> 
 						<input type="text" id="name" name="user_name" class="form-control" value="${memberdto.user_name}" readonly>
 						<div style="text-align:start;">
 							<span class="d-none" id="nameText" style="color:red; font-size:0.8rem; margin-left:8px;">** 이름은 수정할 수 없습니다. **</span>					
 						</div>
 					</div>
-					<div class="col-2"></div>
+					<div class="col-lg-2 col-sm-12"></div>
 				</div>
 				<div class="row">
 					<div class="col-md-3">
@@ -575,22 +571,28 @@ footer.footer {
 					<div class="col-md-3">
 						<p>생년월일</p>
 					</div>
-					<div class="col-md-7">
-						<input type="text" name="year" class="form-control bthday" maxlength="4" value="${date.get(0)}" style="width:140px;" readonly>
+					<div class="col-md-7 d-flex justify-content-start" style="align-items:center;">
+						<input type="text" name="year" class="form-control bthday" maxlength="4" value="${date.get(0)}" readonly>
 						<label for="year">년</label> 
-						<input type="text" name="month" class="form-control bthday" maxlength="2" value="${date.get(1)}" style="width:130px;" readonly>
+						<input type="text" name="month" class="form-control bthday" maxlength="2" value="${date.get(1)}"readonly>
 						<label for="month">월</label> 
-						<input type="text" name="day" class="form-control bthday" maxlength="2" value="${date.get(2)}" style="width:130px;" readonly>
+						<input type="text" name="day" class="form-control bthday" maxlength="2" value="${date.get(2)}"readonly>
 						<label for="day">일</label> 
 						<input type="text" id="user_bd" name="user_bd" class="form-control d-none" value="${memberdto.user_bd}">
 						
-						<div style="text-align:start;">
+						
+					</div>
+					<div class="col-md-2"></div>
+				</div>
+				<div class="row">					
+					<div class="col-md-3"></div>
+					<div class="col-md-7">
+						<div class="" style="text-align:start;">
 							<span class="d-none" id="birthText" style="color:red; font-size:0.8rem; margin-left:8px;">** 생년월일은 수정할 수 없습니다. **</span>					
 						</div>
 					</div>
 					<div class="col-md-2"></div>
 				</div>
-				
 				<c:if test="${loginType eq 'general'}">
 					<div class="row">
 						<div class="col-md-3">
@@ -619,7 +621,32 @@ footer.footer {
 						</div>
 						<div class="col-2"></div>
 					</div>					
-				</c:if>
+				</c:if> 
+				
+				<c:if test="${loginType ne 'general'}">
+					<div class="row d-none">
+						<div class="col-md-3">
+							<p>비밀번호</p>
+						</div>
+						<div class="col-md-7" style="text-align: left;">
+							<input type="password" id="password" name="user_pw" class="form-control" style="font-family:none;" disabled>
+							<span class="d-none" id="wrong-password-regex" style="color:red; font-size:0.8rem; margin-left:8px;">** 비밀번호의 형식에 맞지 않습니다. **</span>
+								<span style="color:red; font-size: 0.8rem; padding: 10px">** 소셜로 로그인하시면 비밀번호 수정이 안됩니다 ** </span>
+						</div>
+						<div class="col-2"></div>
+					</div>
+					<div class="row d-none">
+						<div class="col-md-3">
+							<p>비밀번호 확인</p>
+						</div>
+						<div class="col-md-7" style="text-align: left;">
+							<input type="password" id="password-check" class="form-control d-none" style="font-family:none;" disabled>
+							<span class="d-none" id="wrong-password-check" style="color:red; font-size:0.8rem; margin-left:8px;">** 비밀번호와 맞지 않습니다. **</span>
+							<span class="d-none" id="right-password-check" style="color:green; font-size:0.8rem; margin-left:8px;">** 비밀번호와 일치합니다. **</span>
+						</div>
+						<div class="col-2"></div>
+					</div>								
+				</c:if> 
 				<input type="text" class='d-none' value="${memberdto.user_pw}" name="data_password">
 				<div class="row">
 					<div class="col-md-3">
@@ -684,29 +711,30 @@ footer.footer {
 				let phone1 = $(".checkPhone1").val();
 				$("#phone1").on("input",function(){
 					phone1 = $(this).val();
-					console.log(phone1)
-					if($(".phone1Check").val() !== phone1){
+					console.log("phone1 : ",phone1)
+					if($(".checkPhone1").val() !== phone1){
 						$("#phoneCheck").attr("disabled",false);
 					}else{
 						$("#phoneCheck").attr("disabled",true);
 					}
 				})
 				
-				let phone2 = $(".checkPhone2").val();;
+				let phone2 = $(".checkPhone2").val();
+				console.log(phone2)
 				$("#phone2").on("input",function(){
 					phone2 = $(this).val();
 					console.log(phone2)
-					if($(".phone2Check").val() !== phone2){
+					if($(".checkPhone2").val() !== phone2){
 						$("#phoneCheck").attr("disabled",false);
 					}else{
 						$("#phoneCheck").attr("disabled",true);
 					} 
 				})
 				
-				let phone3 = $(".checkPhone3").val();;
+				let phone3 = $(".checkPhone3").val();
 				$("#phone3").on("input",function(){
 					phone3 = $(this).val();
-					if($(".phone3Check").val() !== phone3){
+					if($(".checkPhone3").val() !== phone3){
 						$("#phoneCheck").attr("disabled",false);
 					}else{
 						$("#phoneCheck").attr("disabled",true);
@@ -871,6 +899,8 @@ footer.footer {
 			let checkPhone = $(".checkPhone").val();
 			let checkPw = $("#check-pw").val();
 			user_phone = phone1 + phone2 + phone3;
+			console.log(user_phone);
+			console.log(phone1);
 			console.log("adasdas : ",checkPhone)
 			
 			/* 빈 값 일때 */

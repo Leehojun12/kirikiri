@@ -59,6 +59,7 @@ public class BoardDAO {
 		map.put("keyword", keyword);
 		map.put("user_email", user_email);
 		
+		System.out.println("mao" +map);
 		return session.selectList("myPageMapper.genalSearchList",map);
 	}
 	

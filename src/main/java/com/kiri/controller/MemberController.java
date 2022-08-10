@@ -207,7 +207,6 @@ public class MemberController {
 		service.groupreportmodify(dto.getUser_email(), dto.getUser_nickname());
 		service.groupreport2modify(dto.getUser_email(), dto.getUser_nickname());
 		service.profileModify(dto);
-		session.setAttribute("loginSession", dto);
 		return "redirect:myPage";
 	}
 	
@@ -295,9 +294,9 @@ public class MemberController {
 	public List<Group_BoardDTO> meetingSearch(String category, String keyword, String user_email) throws Exception {
 		System.out.println(category + " : "+ keyword);
 		if(category.equals("board_title")) {
-			category = "title";			
-		}else if(category.equals("board_content")) {
-			category = "content";			
+			category = "gboard_title";			
+		}else if(category.equals("board_category")) {
+			category = "gboard_category";			
 		}
 		
 		List<Group_BoardDTO> meetinglist = service.meetingSearchList(category, keyword,user_email);

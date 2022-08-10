@@ -130,6 +130,7 @@ h1 {
    width: 100%;
    height: 100%;
    border-radius: 50%;
+   background-color:white;
 }
 
 #profilePic:hover {
@@ -822,7 +823,7 @@ footer.footer {
    <div class="container"style="max-width:1620px;">
       <div style="margin:auto;">
          <div class="row body" style="margin:0px;">
-            <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
                <div class="serviceBox color1 m-2">
                   <div class="service-icon" style="color:#008A65;">
                      <span><i class="fa fa-globe"></i></span>
@@ -848,13 +849,13 @@ footer.footer {
             <!-- modal -->
 
             <div class="modal fade" id="exampleModal1" tabindex="-1"
-               aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+               aria-labelledby="exampleModalLabel1" aria-hidden="true" style="z-index: 9999;">
                <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content" style="width: 350px;">
                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">선호지역(최대 3개선택)</h5>
+                        <h5 class="modal-title" id="exampleModalLabel1">선호지역(최대 3개선택)</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
-                           aria-label="Close"></button>
+                           aria-label="Close" id="closeBtn"></button>
                      </div>
                      <div class="modal-body">
                         <div class="col" id="modal">
@@ -909,7 +910,7 @@ footer.footer {
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-secondary"
-                              data-bs-dismiss="modal" onclick="moveSite();">닫기</button>
+                              data-bs-dismiss="modal" id="closeBtn">닫기</button>
                            <button type="button" class="btn btn-primary" id="saveSiteBtn">저장</button>
                         </div>
                      </div>
@@ -963,11 +964,15 @@ footer.footer {
                            })
                           }
                       });
+                      // 닫기 버튼
+                      $("#closeBtn").on("click",function(){
+                     	location.href="/mem/myPage"
+                      })
                   </script>
                   </div>
                </div>
             </div>
-            <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
                <div class="serviceBox m-2 color2">
                   <div class="service-icon" style="color: #27436d;">
                      <span><i class="fa-solid fa-thumbs-up"></i></span>
@@ -1000,7 +1005,7 @@ footer.footer {
                            <h5 class="modal-title" id="exampleModalLabel">관심사(최대 3개
                               선택)</h5>
                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                              aria-label="Close"></button>
+                              aria-label="Close" id="HcloseBtn"></button>
                         </div>
                         <div class="modal-body">
                            <div class="col" id="modal">
@@ -1079,68 +1084,72 @@ footer.footer {
                            </div>
                            <div class="modal-footer">
                               <button type="button" class="btn btn-secondary"
-                                 data-bs-dismiss="modal">닫기</button>
+                                 data-bs-dismiss="modal" id="HcloseBtn">닫기</button>
                               <button type="button" class="btn btn-primary" id="saveBtn">저장</button>
                            </div>
                         </div>
                         <script>
-                                   var maxCount = 3;
-                                   var count = 0;
-                                   function CountChecked(field) {
-                                       if (field.checked) {
-                                           count += 1;
-                                       } else {
-                                           count -= 1;
-                                       }
-                                       if (count > maxCount) {
-                                           alert("최대 3개까지만 선택가능합니다!");
-                                           field.checked = false;
-                                           count -= 1;
-                                       }
-                                   }
-                                   // 저장 버튼 눌렀을 때
-                                   $("#saveBtn").on("click", function () {
-                                       let checkAccess = $('input[name=hobby]:checked').val();
-                                       let user_email = $("#user_email").val();
+                             var maxCount = 3;
+                             var count = 0;
+                             function CountChecked(field) {
+                                 if (field.checked) {
+                                     count += 1;
+                                 } else {
+                                     count -= 1;
+                                 }
+                                 if (count > maxCount) {
+                                     alert("최대 3개까지만 선택가능합니다!");
+                                     field.checked = false;
+                                     count -= 1;
+                                 }
+                             }
+                             // 저장 버튼 눌렀을 때
+                             $("#saveBtn").on("click", function () {
+                                 let checkAccess = $('input[name=hobby]:checked').val();
+                                 let user_email = $("#user_email").val();
 
-                                       let checkBoxArr = [];
-                                       $("input[name=hobby]:checked").each(function () {
-                                           checkBoxArr.push($(this).val());
-                                       })
+                                 let checkBoxArr = [];
+                                 $("input[name=hobby]:checked").each(function () {
+                                     checkBoxArr.push($(this).val());
+                                 })
 
-                                       if(checkBoxArr == ""){
-                                          Swal.fire('적어도 한개는 선택해주세요!!!')
-                                       }else{
-                                        $.ajax({
-                                            url: "/mem/hobbyModal?&checkBoxArr=" + checkBoxArr + "&user_email=" + user_email,
-                                            type: "get",
-                                            data: { "checkBoxArr[]": checkBoxArr },
-                                            success: function (data) {
-                                                console.log(data);
-                                                $(".fade").hide();
-                                                location.href = "/mem/myPage";
-                                            },
-                                            error: function (e) {
-                                                console.log(e);
-                                            }
-                                        })
-                                       }
+                                 if(checkBoxArr == ""){
+                                    Swal.fire('적어도 한개는 선택해주세요!!!')
+                                 }else{
+                                  $.ajax({
+                                      url: "/mem/hobbyModal?&checkBoxArr=" + checkBoxArr + "&user_email=" + user_email,
+                                      type: "get",
+                                      data: { "checkBoxArr[]": checkBoxArr },
+                                      success: function (data) {
+                                          console.log(data);
+                                          $(".fade").hide();
+                                          location.href = "/mem/myPage";
+                                      },
+                                      error: function (e) {
+                                          console.log(e);
+                                      }
+                                  })
+                                 }
 
-                                   });
-                               </script>
+                             });
+                             // 닫기 버튼
+                             $("#HcloseBtn").on("click",function(){
+                            	location.href="/mem/myPage"
+                             })
+                         </script>
                      </div>
                   </div>
                </div>
             </div>
             <div
-               class="col-md-4 d-flex justify-content-center mt-5 d-flex justify-content-center">
+               class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5 d-flex justify-content-center">
                <div class="serviceBox  m-2 color1">
                   <div class="service-icon" style="color: #008A65;">
                      <span><i class="fa-solid fa-people-group"></i></span>
                   </div>
                   <h3 class="title">가입한 모임</h3>
                   <c:if test="${selectGroupList.size() == 0}">
-                     <div class="row description" id="myList">
+                     <div class="row description" >
                         <div class="col-3 d-flex justify-content-end"></div>
                         <div class="col-8 d-flex justify-content-start">
                            <span> 가입한 모임이 없습니다.</span>
@@ -1180,16 +1189,14 @@ footer.footer {
                   </c:if>
                </div>
             </div>
-         </div>
-         <div class="row body" style="margin:0px;">
-            <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
                <div class="serviceBox color2 m-2">
                   <div class="service-icon" style="color: #27436d;">
                      <span><i class="fa-solid fa-file-pen"></i></span>
                   </div>
                   <h3 class="title">내가 쓴 글</h3>
                   <c:if test="${selectBoardList.size() == 0}">
-                     <div class="row description" id="myList" style="color: #27436d;">
+                     <div class="row description" style="color: #27436d;">
                         <div class="col-3 d-flex justify-content-end"></div>
                         <div class="col-8 d-flex justify-content-start">
                            <span>내가 쓴 글이 없습니다.</span>
@@ -1218,14 +1225,14 @@ footer.footer {
                   </c:if>
                </div>
             </div>
-            <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
                <div class="serviceBox m-2 color1">
                   <div class="service-icon" style="color: #008A65;">
                      <span><i class="fa-solid fa-heart"></i></span>
                   </div>
                   <h3 class="title">희망 모임</h3>
                   <c:if test="${selectWishList.size() == 0}">
-                     <div class="row description" id="myList" style="color: #008A65;">
+                     <div class="row description" style="color: #008A65;">
                         <div class="col-3 d-flex justify-content-end"></div>
                         <div class="col-8 d-flex justify-content-start wishContent">
                            <span>찜한 모임이 없습니다.</span>
@@ -1313,8 +1320,7 @@ footer.footer {
                                            "seq_group": seq_group
                                        },
                                        success: function (data) {
-                                           parent.remove();
-                                           window.location.href = "";
+                                           location.href="/mem/myPage"
                                        },
                                        error: function (e) {
                                            console.log(e);
@@ -1325,7 +1331,7 @@ footer.footer {
                        })
                    })
                </script>
-            <div class="col-md-4 d-flex justify-content-center mt-5">
+            <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mt-5">
                <div class="serviceBox m-2 color2">
                   <div class="service-icon" style="color: #27436d;">
                      <span><i class="fa-solid fa-envelope"></i></span>
@@ -1350,7 +1356,7 @@ footer.footer {
                      </span>
                      <span class="ms-2" id="msgTitle">쪽지함보기</span>
                      <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close" onclick="moveSite();"></button>
+                        aria-label="Close"></button>
                   </div>
                   <!-- 답장 (보낸사람 클릭시 활성화 -->
 					<div class="d-none" id="msgForm" style="padding: 14px;">
@@ -1419,8 +1425,8 @@ footer.footer {
                         </table>
                      </div>
                      <div class="modal-footer msgModal-footer"  style="background-color:#FFFEE9; border-top:2px solid #FFE19E;">
-                        <button type="button" class="btn btn-primary ms-2" id="closeBtn"
-                           data-bs-dismiss="modal" onclick="moveSite();">닫기</button>
+                        <button type="button" class="btn btn-primary ms-2 closeBtn"
+                           data-bs-dismiss="modal" onclick="moveSite()">닫기</button>
                         <button type="button" class="btn btn-danger ms-2" id="deleteBtn">삭제</button>
                         <button type="button" class="btn btn-danger ms-2 d-none" id="replyBtn">답장</button>
                         <input type="text" value="${memberdto.user_nickname}" id="myId"
@@ -1429,7 +1435,7 @@ footer.footer {
                   </div>
                </div>
             </div>
-			</div>
+         </div>
       </div>
 	</div>
 	<!-- Footer-->
@@ -1529,7 +1535,7 @@ footer.footer {
                         url: "/mem/profileDelete?user_email=" + user_email,
                         type: "get",
                         success: function (data) {
-                            location.href = "/";
+                            location.href = "/login/toLogout";
                         },
                         error: function (e) {
                             console.log(e);

@@ -48,6 +48,7 @@ public class Group_BoardDAO {
 		map.put("keyword", keyword);
 		map.put("user_email",user_email);
 		
+		System.out.println("map" +map);
 		return session.selectList("myPageMapper.meetingSearchList",map);
 	}
 	

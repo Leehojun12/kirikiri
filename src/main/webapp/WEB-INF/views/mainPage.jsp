@@ -999,7 +999,7 @@ footer.footer {
             </div>
          </div>
       </div>
-      </div>
+   </div>
   <!-- Footer-->
    <div class="footerWrapper mt-5" style="border-top:1px solid #e0e3e8;">
       <div class="container">

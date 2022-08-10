@@ -814,7 +814,7 @@ body {
                   	</c:if>
                   	<c:if test = "${selectAllList.size() > 0}">
 						<c:forEach items="${selectAllList}" var="dto">
-	                        <div class="col-md-3 d-flex justify-content-center p-4">
+	                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center p-4">
 	                           <div class="card">
 	                           		<c:choose>
 										<c:when test="${dto.sys_name ne null}">
