@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -294,6 +295,7 @@ h4 {
    line-height: 22px;
    padding: 8px;
    padding-left:0px;
+   align-items: center;
 }
 .serviceBox a:hover{
    color:#008A65;
@@ -327,38 +329,41 @@ h4 {
    }
 }
 
-/* footer css 부분 */
-.footer {
-   width: 100%;
-   height: 200px;
-}
-
-.footerWrapper{
-   background-color: white;
-   font-family: "MICEGothic Bold";
-   font-size: 15px;
-}
-.footerBox {
-   height: 0px;
-}
-
-footer.footer {
-   padding-top: 2rem;
-   padding-bottom: 2rem;
-   background-color: #ffffff;
-}
-
-.footer a {
-   text-decoration: none;
-   color: black;
-   font-weight: 40px;
-   font-weight: bold;
-}
-
-.footer-imgBox>img {
-   width: 100%;
-   height: 100%;
-}
+      /* footer */
+      /*풋터 영역*/
+      .footer-imgBox img{
+         max-width: 100%;
+      }
+      
+      .footerWrapper{
+         background-color: white;
+         font-family: "MICEGothic Bold";
+         font-size: 15px;
+      }
+      .footerBox {
+         height: 0px;
+      }
+      
+      footer.footer {
+         padding-top: 2rem;
+         padding-bottom: 2rem;
+      }
+      
+      .footer a {
+         text-decoration: none;
+         color: black;
+         font-weight: 40px;
+         font-weight: bold;
+      }
+      
+      .footer-imgBox>img {
+         height: 100%;
+         text-align:center;
+      }
+      .footer-imgBox {
+         height: 100%;
+         text-align:center;
+      }
 
 /* 눈누 폰트 */
 @font-face {
@@ -580,7 +585,6 @@ footer.footer {
 		<form action="/mem/modifyProfilePic" method="post" id="modifyPicForm"
 			enctype="multipart/form-data">
 			<div class="row justify-content-center">
-				<!-- <div class="col-md-2 d-none d-md-block"></div> -->
 				<div class="col-4 d-flex justify-content-center">
 					<div id="profilePic">
 						<c:choose>
@@ -759,7 +763,7 @@ footer.footer {
    <div class="modal fade" id="exampleModal2" tabindex="-1"
       aria-labelledby="exampleModalLabel" aria-hidden="true"
       style="z-index: 9999;">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered d-flex justify-content-center">
          <div class="modal-content" style="width: 350px; height: 400px;">
             <div class="modal-header">
                <h5 class="modal-title" id="exampleModalLabel">비밀번호 확인</h5>
@@ -839,7 +843,7 @@ footer.footer {
                            <i class="fa-solid fa-location-dot me-3"></i>
                         </div>
                         <div class="col-7 d-flex justify-content-start">
-                           <span>${sitedto.area}</span>
+                           <a href="/user/toUserSelectedGroupList?group_site=${fn:substring(sitedto.area,0,2)}"><span>${sitedto.area}</span></a>
                         </div>
                         <div class="col-2 d-flex justify-content-end"></div>
                      </div>
@@ -856,6 +860,12 @@ footer.footer {
                         <h5 class="modal-title" id="exampleModalLabel1">선호지역(최대 3개선택)</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                            aria-label="Close" id="closeBtn"></button>
+               <div class="modal-dialog modal-dialog-centered justify-content-center d-flex">
+                  <div class="modal-content" style="width: 350px;">
+                     <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">선호지역(최대 3개선택)</h5>
+                        <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal"
+                           aria-label="Close"></button>
                      </div>
                      <div class="modal-body">
                         <div class="col" id="modal">
@@ -886,9 +896,9 @@ footer.footer {
                               </div>
                               <div class="col-6 hobbyWrapper">
                                  <div>
-                                    <input onclick="CountChecked1(this)" type="checkbox" id="충정도"
-                                       name="site" class="checkbox me-1" value="충정도"> <label
-                                       for="충정도">충정도</label>
+                                    <input onclick="CountChecked1(this)" type="checkbox" id="충청도"
+                                       name="site" class="checkbox me-1" value="충청도"> <label
+                                       for="충청도">충청도</label>
                                  </div>
                                  <div>
                                     <input onclick="CountChecked1(this)" type="checkbox" id="경상도"
@@ -911,6 +921,8 @@ footer.footer {
                         <div class="modal-footer">
                            <button type="button" class="btn btn-secondary"
                               data-bs-dismiss="modal" id="closeBtn">닫기</button>
+                           <button type="button" class="btn btn-secondary closeBtn"
+                              data-bs-dismiss="modal">닫기</button>
                            <button type="button" class="btn btn-primary" id="saveSiteBtn">저장</button>
                         </div>
                      </div>
@@ -931,7 +943,7 @@ footer.footer {
                               count -= 1;
                           }
                           if (count > maxCount) {
-                              alert("최대 3개까지만 선택가능합니다!");
+                        	  Swal.fire('최대 3개까지 선택 가능해요!!!');
                               field.checked = false;
                               count -= 1;
                           }
@@ -989,7 +1001,7 @@ footer.footer {
                            <i class="fa-solid fa-thumbs-up me-3"></i>
                         </div>
                         <div class="col-7 d-flex justify-content-start">
-                           <span>${hobbydto.hobby}</span>
+                           <a href="/user/toUserSelectedGroupList?group_category=${hobbydto.hobby}"><span>${hobbydto.hobby}</span></a>
                         </div>
                         <div class="col-2"></div>
                      </div>
@@ -998,7 +1010,7 @@ footer.footer {
                <!-- Modal -->
 
                <div class="modal fade" id="exampleModal" tabindex="-1"
-                  aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999;">
+                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered">
                      <div class="modal-content">
                         <div class="modal-header">
@@ -1006,6 +1018,8 @@ footer.footer {
                               선택)</h5>
                            <button type="button" class="btn-close" data-bs-dismiss="modal"
                               aria-label="Close" id="HcloseBtn"></button>
+                           <button type="button" class="btn-close closeBtn" data-bs-dismiss="modal"
+                              aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                            <div class="col" id="modal">
@@ -1085,6 +1099,8 @@ footer.footer {
                            <div class="modal-footer">
                               <button type="button" class="btn btn-secondary"
                                  data-bs-dismiss="modal" id="HcloseBtn">닫기</button>
+                              <button type="button" class="btn btn-secondary closeBtn"
+                                 data-bs-dismiss="modal">닫기</button>
                               <button type="button" class="btn btn-primary" id="saveBtn">저장</button>
                            </div>
                         </div>
@@ -1107,6 +1123,29 @@ footer.footer {
                              $("#saveBtn").on("click", function () {
                                  let checkAccess = $('input[name=hobby]:checked').val();
                                  let user_email = $("#user_email").val();
+                        // 닫기 버튼
+                        $(".closeBtn").on("click",function(){
+                          location.href="/mem/myPage"
+                        })
+                               	var maxCount = 3;
+                               	var count = 0;
+                               	
+                                   function CountChecked(field) {
+                                       if (field.checked) {
+                                           count += 1;
+                                       } else {
+                                           count -= 1;
+                                       }
+                                       if (count > maxCount) {
+                                    	   Swal.fire('최대 3개까지 선택 가능해요!!!');
+                                           field.checked = false;
+                                           count -= 1;
+                                       }
+                                   }
+                                   // 저장 버튼 눌렀을 때
+                                   $("#saveBtn").on("click", function () {
+                                       let checkAccess = $('input[name=hobby]:checked').val();
+                                       let user_email = $("#user_email").val();
 
                                  let checkBoxArr = [];
                                  $("input[name=hobby]:checked").each(function () {
@@ -1212,7 +1251,7 @@ footer.footer {
                               <i class="fa-solid fa-pen-nib ms-3"></i>
                            </div>
                            <div class="col-7 d-felx justify-content-start text-start">
-                              <span>${boarddto.board_title}</span>
+                              <span style = "word-break:break-all;">${boarddto.board_title}</span>
                            </div>
                            <div class="col-2 d-felx justify-content-start"></div>
                         </div>
@@ -1248,7 +1287,7 @@ footer.footer {
                               <i class="fa-solid fa-heart"></i>
                            </div>
                            <div class="col-6 d-flex justify-content-start text-start">
-                              <span><a href="/group/toGroupDetail?seq_group=${wishlistdto.SEQ_GROUP}">${wishlistdto.TITLE}</a></span>
+                              <span style = "word-break:break-all;"><a href="/group/toGroupDetail?seq_group=${wishlistdto.SEQ_GROUP}">${wishlistdto.TITLE}</a></span>
                            </div>
                            <div class="col-3 d-flex justify-content-start">
                               <i class="fa-solid fa-trash-can wishDelete"></i> <input
@@ -1355,7 +1394,8 @@ footer.footer {
                      <img style = "width:35px;" src = "/resources/images/mail.png">
                      </span>
                      <span class="ms-2" id="msgTitle">쪽지함보기</span>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal"
+                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="moveSite();"
                         aria-label="Close"></button>
                   </div>
                   <!-- 답장 (보낸사람 클릭시 활성화 -->
@@ -1427,6 +1467,8 @@ footer.footer {
                      <div class="modal-footer msgModal-footer"  style="background-color:#FFFEE9; border-top:2px solid #FFE19E;">
                         <button type="button" class="btn btn-primary ms-2 closeBtn"
                            data-bs-dismiss="modal" onclick="moveSite()">닫기</button>
+                        <button type="button" class="btn btn-primary ms-2" id="closeBtn" onclick ="moveSite();"
+                           data-bs-dismiss="modal">닫기</button>
                         <button type="button" class="btn btn-danger ms-2" id="deleteBtn">삭제</button>
                         <button type="button" class="btn btn-danger ms-2 d-none" id="replyBtn">답장</button>
                         <input type="text" value="${memberdto.user_nickname}" id="myId"
@@ -1438,73 +1480,81 @@ footer.footer {
          </div>
       </div>
 	</div>
-	<!-- Footer-->
-  <div class="footerWrapper mt-5" style="border-top:1px solid #e0e3e8;">
-    <div class="container">
-      <footer class="footer">
-        <div class="row">
-          <div class="col-lg-3 footer-imgBox">
-            <img src="/resources/images/kirilogo.png" alt="오류가 발생했습니다." />
-          </div>
-          <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-             <ul class="list-inline mb-2">
-            <li class="list-inline-item"><a href="/board/toBoard">공지사항</a></li>
-            <li class="list-inline-item">⋅</li>
-            <c:choose>
-               <c:when test="${not empty loginSession}">
-                  <li class="list-inline-item"><a href="/mem/myPage">마이페이지</a></li>
-                  <li class="list-inline-item">⋅</li>
-                  <li class="list-inline-item"><a href="/login/toLogout">로그아웃</a></li>
-               </c:when>
-               <c:otherwise>
-                  <li class="list-inline-item"><a href="/signup/toSignupAgree">회원가입</a></li>
-                  <li class="list-inline-item">⋅</li>
-                  <li class="list-inline-item"><a href="/login/toLogin">로그인</a></li>
-               </c:otherwise>
-            </c:choose>
-            <li class="list-inline-item">⋅</li>
-            <li class="list-inline-item">
-               <c:choose>
-                  <c:when test="${not empty loginSession}">
-                     <a href="/group/toCreateGroup">모임 만들기</a>
-                  </c:when>
-                  <c:otherwise>
-                     <a href="/login/toLogin">모임 만들기</a>
-                  </c:otherwise>
-               </c:choose>
-            </li>
-            <li class="list-inline-item">⋅</li>
-            <li class="list-inline-item"><a href="/privacy"
-               style="color: red; font-weight: bold;">개인정보처리방침</a></li>
-         </ul>
-            <p class="text-muted small mb-4 mb-lg-0">
-              끼리끼리(주) 대표 : 이호준 | 개인정보관리책임자 : 김영완 |
-              사업자등록번호 : 22-02-22
-            </p>
-            <p class="text-muted small mb-4 mb-lg-0">
-              주소 : 서울특별시 영등포구 선유동2로 57 이레빌딩
-            </p>
-            <p class="text-muted small mb-4 mb-lg-0">
-              &copy; Your Website 2022. All Rights Reserved.
-            </p>
-          </div>
-          <div class="col-lg-3 h-100 text-center text-lg-start my-auto">
-            <ul class="list-inline mb-0">
-            <li class="list-inline-item me-4"><a
-               href="https://ko-kr.facebook.com"><i class="bi-facebook fs-3"></i></a></li>
-            <li class="list-inline-item me-4"><a
-               href="https://twitter.com/?lang=ko"><i
-                  class="bi-twitter fs-3"></i></a></li>
-            <li class="list-inline-item"><a
-               href="https://www.instagram.com/"><i
-                  class="bi-instagram fs-3"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </div>
+   <!-- Footer-->
+   <div class="footerWrapper mt-5" style="border-top:1px solid #e0e3e8;">
+      <div class="container">
+         <footer class="footer">
+            <div class="row">
+               <div class="col-lg-3 footer-imgBox">
+                  <img src="/resources/images/kirilogo.png" alt="오류가 발생했습니다." />
+               </div>
+               <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                  <ul class="list-inline mb-2">
+                     <li class="list-inline-item"><a href="/board/toBoard?pageNum=1&amount=10&keyword=&type=&category=공지">공지사항</a></li>
+                     <li class="list-inline-item">⋅</li>
+                     <c:choose>
+                        <c:when test="${not empty loginSession}">
+                           <li class="list-inline-item"><a href="/mem/myPage">마이페이지</a></li>
+                           <li class="list-inline-item">⋅</li>
+                           <c:if test="${loginType ne 'kakao'}">
+                              <li class="list-inline-item"><a href="/login/toLogout">로그아웃</a></li>
+                           </c:if>
+                           <c:if test="${loginType eq 'kakao'}">
+                              <li class="list-inline-item"><a href="${kakaoLogout}">로그아웃</a></li>
+                           </c:if>
+                        </c:when>
+                        <c:otherwise>
+                           <li class="list-inline-item"><a
+                              href="/signup/toSignupAgree">회원가입</a></li>
+                           <li class="list-inline-item">⋅</li>
+                           <li class="list-inline-item"><a href="/login/toLogin">로그인</a></li>
+                        </c:otherwise>
+                     </c:choose>
+                     <li class="list-inline-item">⋅</li>
+                     <li class="list-inline-item">
+                        <c:choose>
+                           <c:when test="${not empty loginSession}">
+                              <a href="/group/toCreateGroup">모임 만들기</a>
+                           </c:when>
+                           <c:otherwise>
+                              <a href="/login/toLogin">모임 만들기</a>
+                           </c:otherwise>
+                        </c:choose>
+                     </li>
+                     <li class="list-inline-item">⋅</li>
+                     <li class="list-inline-item"><a href="/privacy"
+                        style="color: red; font-weight: bold;">개인정보처리방침</a></li>
+                  </ul>
+                  <p class="text-muted small mb-4 mb-lg-0">끼리끼리(주) 대표 : 이호준 |
+                     개인정보관리책임자 : 김영완 | 사업자등록번호 : 22-02-22</p>
+                  <p class="text-muted small mb-4 mb-lg-0">주소 : 서울특별시 영등포구 선유동2로
+                     57 이레빌딩</p>
+                  <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website
+                     2022. All Rights Reserved.</p>
+               </div>
+               <div class="col-lg-3 h-100 text-center text-lg-start my-auto">
+                  <ul class="list-inline mb-0">
+                     <li class="list-inline-item me-4"><a
+                        href="https://ko-kr.facebook.com"><i
+                           class="bi-facebook fs-3"></i></a></li>
+                     <li class="list-inline-item me-4"><a
+                        href="https://twitter.com/?lang=ko"><i
+                           class="bi-twitter fs-3"></i></a></li>
+                     <li class="list-inline-item"><a
+                        href="https://www.instagram.com/"><i
+                           class="bi-instagram fs-3"></i></a></li>
+                  </ul>
+               </div>
+            </div>
+         </footer>
+      </div>
+   </div>
 	<script>
+	// 다시 홈으로 돌아오는 함수
+	let moveSite = function() {
+		window.location.href = "";
+	}
+	
     /* 내가쓴글로 이동 */
     $("#towritePage").on("click", function () {
         let user_email = $("#user_email").val();
@@ -1536,6 +1586,7 @@ footer.footer {
                         type: "get",
                         success: function (data) {
                             location.href = "/login/toLogout";
+                        	location.href = "/login/toLogout";
                         },
                         error: function (e) {
                             console.log(e);
@@ -1716,15 +1767,9 @@ footer.footer {
 					  title: '에러가 발생했네요..',
 					  text: '관리자에게 문의해주세여!',
 					});
-          }
+          	}
          })
     })
-
-    // 다시 홈으로 돌아오는 함수
-		let moveSite = function() {
-			window.location.href = "";
-		}
-
 </script>
 </body>
 

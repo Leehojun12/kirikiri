@@ -14,6 +14,7 @@ import com.kiri.dto.BestGroupDTO;
 import com.kiri.dto.BoardDTO;
 import com.kiri.dto.Tbl_GroupDTO;
 import com.kiri.service.HomeService;
+import com.kiri.utills.SecurityInfo;
 
 @Controller
 public class HomeController {
@@ -27,6 +28,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "/")
 	public String main(Model model) throws Exception {
+		session.setAttribute("kakaoLogout", "https://kauth.kakao.com/oauth/logout?client_id=" + SecurityInfo.kakaoId 
+		+"&logout_redirect_uri=" + "http://192.168.20.21/login/toLogout");
 		
 		List<Tbl_GroupDTO> selectAllList = home_service.selectAllGroup();
 		List<Tbl_GroupDTO> selectNewList = home_service.selectNewGroup();
@@ -39,7 +42,7 @@ public class HomeController {
 	      int seq_board;
 	      List<String> sys_name = new ArrayList<>();
 	      if(getBestBoard.size()==0) {
-	         System.out.println("없습니다~~");
+
 	      }else if(getBestBoard.size()==1) {
 	         for(int i=0; i<1; i++) {
 	            seq_board = getBestBoard.get(i).getSeq_board();
