@@ -6,9 +6,8 @@
 
 ## 1. 소개
 
-<hr>
-
 ### 💻 기술 스택
 
 <br>
+
 <img src="https://user-images.githubusercontent.com/81966557/184476765-3a2c7cf3-1458-475c-ba49-26229f82ee27.png">
