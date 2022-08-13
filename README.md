@@ -34,7 +34,7 @@
 
 <br>
 
-<img src="https://user-images.githubusercontent.com/81966557/184477551-dab6adfb-018d-4b07-9530-be8f8285d70e.png"></img>
+<img src="https://user-images.githubusercontent.com/81966557/184477838-1c99a9e4-de9d-4e33-b72f-c13f3047aff0.svg"></img>
 
 ### 🔍 개발 일정
 
